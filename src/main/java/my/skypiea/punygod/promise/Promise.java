@@ -35,7 +35,7 @@ public class Promise<T> extends PromiseSupport<T> {
     public Promise<T> fulfillInAsync(final Callable<T> task, Executor executor) {
         executor.execute(() -> {
             try {
-                task.call();
+                fulfill(task.call());
             } catch (Exception e) {
                 fulfillExceptionally(e);
             }
