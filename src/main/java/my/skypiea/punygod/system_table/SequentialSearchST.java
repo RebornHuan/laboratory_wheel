@@ -1,6 +1,8 @@
 package my.skypiea.punygod.system_table;
 
-public class SequentialSearchST<Key extends Comparable<Key>, Value> extends ST<Key, Value> {
+import my.skypiea.punygod.queues.Queue;
+
+public class SequentialSearchST<Key, Value> extends ST<Key, Value> {
     private Node first;
     private int N;
 
@@ -57,6 +59,9 @@ public class SequentialSearchST<Key extends Comparable<Key>, Value> extends ST<K
 
     @Override
     public Iterable<Key> keys() {
-        return null;
+        Queue<Key> queue = new Queue<Key>();
+        for (Node x = first; x != null; x = x.next)
+            queue.enqueue(x.key);
+        return queue;
     }
 }

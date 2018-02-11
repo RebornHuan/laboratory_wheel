@@ -1,6 +1,6 @@
 package my.skypiea.punygod.system_table;
 
-public abstract class ST<Key extends Comparable<Key>, Value> {
+public abstract class ST<Key, Value> {
     public ST() {
     }
 
