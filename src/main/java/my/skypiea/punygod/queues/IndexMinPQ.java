@@ -75,6 +75,15 @@ public class IndexMinPQ<Item extends Comparable<Item>> {
         sink(index);
     }
 
+    public void decreaseKey(int i, Item item) {
+        if (i < 0 || i >= maxN) throw new IllegalArgumentException();
+        if (!contains(i)) throw new NoSuchElementException("index is not in the priority queue");
+        if (items[i].compareTo(item) <= 0)
+            throw new IllegalArgumentException("Calling decreaseKey() with given argument would not strictly decrease the key");
+        items[i] = item;
+        swim(qp[i]);
+    }
+
 
     private boolean greater(int p, int q) {
         return items[p].compareTo(items[q]) > 0;

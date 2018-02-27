@@ -25,10 +25,32 @@ public class DepthFirstOrder {
         marked = new boolean[G.V()];
     }
 
+    public DepthFirstOrder(EdgeWeightedDiGraph G) {
+        pre = new Queue<>();
+        post = new Queue<>();
+        marked = new boolean[G.V()];
+        for (int v = 0; v < G.V(); v++)
+            if (!marked[v]) dfs(G, v);
+    }
+
+
     private void dfs(Graph G, int v) {
         marked[v] = true;
         pre.enqueue(v);
         for (int w : G.adj(v)) {
+            if (!marked[w]) {
+                dfs(G, w);
+            }
+        }
+        post.enqueue(v);
+        reversePost.push(v);
+    }
+
+    private void dfs(EdgeWeightedDiGraph G, int v) {
+        marked[v] = true;
+        pre.enqueue(v);
+        for (DirectedEdge e : G.adj(v)) {
+            int w = e.to();
             if (!marked[w]) {
                 dfs(G, w);
             }

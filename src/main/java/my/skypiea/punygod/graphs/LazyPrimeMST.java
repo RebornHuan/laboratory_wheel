@@ -10,10 +10,12 @@ public class LazyPrimeMST {
     private Queue<Edge> mst;
     private MinPQ<Edge> pq;
 
-    public LazyPrimeMST(Graph G) {
+    public LazyPrimeMST(EdgeWeightedGraph G) {
         pq = new MinPQ<>();
         mst = new Queue<>();
         marked = new boolean[G.V()];
+        for (int v = 0; v < G.V(); v++)
+            if (!marked[v]) prim(G, v);
     }
 
     private void prim(EdgeWeightedGraph G, int s) {
@@ -21,7 +23,7 @@ public class LazyPrimeMST {
         while (!pq.isEmpty()) {
             Edge e = pq.delMin();
             int v = e.either(), w = e.other(v);
-            if (!marked[v] && !marked[w]) continue;
+            if (marked[v] && marked[w]) continue;
             mst.enqueue(e);
             weight = e.weight();
             if (!marked[v]) scan(G, v);
